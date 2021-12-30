@@ -1,13 +1,20 @@
+h1 {
+  width: 100%;
+  position: absolute;
+  top: 10px;
+  text-align: center;
+}
+
 body {
-  padding: 50px;
+  padding: 5px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
   color: white;
   background-color: black;
+  text-align: center;
 }
 
-#questionHeader {
+#qHeader {
   color: white;
-  text-align: center;
   pointer-events: none;
 }
 
@@ -23,6 +30,7 @@ body {
   font-size: 20px;
   padding-left: 10px;
   text-decoration: none;
+  text-align: left;
   color: white;
   margin: 40px auto;
   font-family: Helvetica, Arial, sans-serif;
@@ -67,4 +75,76 @@ body {
 .button.border:hover:before,
 .button.border:hover:after {
   background: #ff9633;
+}
+
+/* Question Header Style */
+
+.questionHeader {
+  position: relative;
+  display: block;
+  background: transparent;
+  width: 450px;
+  height: 80px;
+  line-height: 80px;
+  font-size: 20px;
+  padding-left: 10px;
+  text-decoration: none;
+  color: white;
+  margin: 40px auto;
+  font-family: Helvetica, Arial, sans-serif;
+  box-sizing: border-box;
+}
+.questionHeader:before,
+.questionHeader:after {
+  position: absolute;
+  content: "";
+  width: 450px;
+  left: 0px;
+  height: 34px;
+  z-index: -1;
+}
+
+.questionHeader:before {
+  transform: perspective(15px) rotateX(3deg);
+}
+.questionHeader:after {
+  top: 40px;
+  transform: perspective(15px) rotateX(-3deg);
+}
+
+/* Button Border Style */
+
+.questionHeader.border:before,
+.questionHeader.border:after {
+  border: 4px solid #c0c0c0;
+  background-color: #002366;
+}
+.questionHeader.border:before {
+  border-bottom: none; /* to prevent the border-line showing up in the middle of the shape */
+}
+.questionHeader.border:after {
+  border-top: none; /* to prevent the border-line showing up in the middle of the shape */
+}
+
+.questionHolder {
+  width: auto;
+  padding: 5px;
+  margin: 0%;
+}
+
+.answerHolder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+li {
+  text-align: left;
+  text-decoration: none;
+  font-size: 25px;
+  color: #ff9633;
+}
+
+.safety {
+  color: white;
 }
