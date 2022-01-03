@@ -13,6 +13,10 @@ body {
   text-align: center;
 }
 
+.prizeBoard {
+  padding-left: 15px;
+}
+
 #qHeader {
   color: white;
   pointer-events: none;
@@ -128,8 +132,8 @@ body {
 
 .questionHolder {
   width: auto;
-  padding: 5px;
-  margin: 0%;
+  padding: 0px 0px 0px 0px;
+  margin: 0px;
 }
 
 .answerHolder {
@@ -147,4 +151,8 @@ li {
 
 .safety {
   color: white;
+}
+
+.line {
+  stroke: #c0c0c0;
 }

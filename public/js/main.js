@@ -19,6 +19,7 @@ var answerD = "Answer D";
 //         }
 //     } while (userName = null);
 
+       //hide play button
 //     play();
 
 // }
