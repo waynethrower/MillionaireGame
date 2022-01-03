@@ -88,21 +88,21 @@ function populateAnswers(randomised) {
 async function getQuestions() {
     let response;
     if (score === 10) {
-        console.log(`fetching hard`)
+        //console.log(`fetching hard`)
         response = await fetch(`https://opentdb.com/api.php?amount=5&category=9&difficulty=hard&type=multiple`);
     }
     else if(score ===5 && score<10) {
-        console.log(`fetching medium`)
+        //console.log(`fetching medium`)
         response = await fetch(`https://opentdb.com/api.php?amount=5&category=9&difficulty=medium&type=multiple`);
     }
     else {
-        console.log(`fetching easy`)
+        //console.log(`fetching easy`)
         response = await fetch(`https://opentdb.com/api.php?amount=5&category=9&difficulty=easy&type=multiple`);
     }
     let json = await response.json();
     questions = json["results"];
     index = 0;
-    console.log(questions);
+    //console.log(questions);
     populateQuestion(questions[index].question);
     answer = questions[index].correct_answer;
     let wrongAs = questions[index].incorrect_answers;
@@ -134,12 +134,18 @@ function checkAnswer(uAnswerI) {
    
     //compare user answer to answer
     if (answer === randomised[uAnswerI]) {
-        alert("Congratulations, you were correct");
-        index++;
-        score++;
-        updatePrizeBoard();
-        nextQuestion();
-        return true;
+        if (score === 14) {
+            alert("Congratulations, you have won a Million Pounds!")
+            //update everything to reset
+        }
+        else {
+            alert("Congratulations, you were correct");
+            index++;
+            score++;
+            updatePrizeBoard();
+            nextQuestion();
+            return true;
+        }
     }
     else {
         alert("Sorry, that was not the correct answer");
@@ -167,25 +173,11 @@ function updatePrizeBoard() {
 
 //Run Game
 function play() {
-
     //set up play game button - hide play button & show game items
-    //triggers name input pop up
-    //fetch questions - complex mix of subjects easy getting harder
-
-    //5 Easy
-    //https://opentdb.com/api.php?amount=5&category=9&difficulty=easy&type=multiple
-    //5 medium
-    //https://opentdb.com/api.php?amount=5&category=9&difficulty=medium&type=multiple
-    //5 hard
-    //https://opentdb.com/api.php?amount=5&category=9&difficulty=hard&type=multiple
-
+ 
     //receive questions and answers, randomize A to D, keep track of correct answers
     getQuestions();
     updatePrizeBoard();
-
-    //if correct congratulations & next question, update Prize Board
-    //else Game Over
-
 }
 
 
