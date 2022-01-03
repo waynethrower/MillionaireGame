@@ -54,7 +54,7 @@ function populateAnswers(randomised) {
         //Handle answer selection
         document.getElementById("answerA").onmousedown = function () {
             if (locked === false) {
-                console.log("User moused down A");
+                //console.log("User moused down A");
                 locked = true;
                 checkAnswer(0);
             }
@@ -62,7 +62,7 @@ function populateAnswers(randomised) {
         
         document.getElementById("answerB").onmousedown = function () {
             if (locked === false) {
-                console.log("User moused down B");
+                //console.log("User moused down B");
                 locked = true;
                 checkAnswer(1);
             }
@@ -70,7 +70,7 @@ function populateAnswers(randomised) {
         
         document.getElementById("answerC").onmousedown = function () {
             if (locked === false) {
-                console.log("User moused down C");
+                //console.log("User moused down C");
                 locked = true;
                 checkAnswer(2);
             }
@@ -78,7 +78,7 @@ function populateAnswers(randomised) {
         
         document.getElementById("answerD").onmousedown = function () {
             if (locked === false) {
-                console.log("User moused down D");
+                //console.log("User moused down D");
                 locked = true;
                 checkAnswer(3);
             }
@@ -89,6 +89,7 @@ async function getQuestions() {
     let response = await fetch(`https://opentdb.com/api.php?amount=5&category=9&difficulty=easy&type=multiple`);
     let json = await response.json();
     questions = json["results"];
+    index = 0;
     console.log(questions);
     populateQuestion(questions[index].question);
     answer = questions[index].correct_answer;
@@ -99,11 +100,17 @@ async function getQuestions() {
 }
 
 function nextQuestion() {
-    populateQuestion(questions[index].question);
-    answer = questions[index].correct_answer;
-    let wrongAs = questions[index].incorrect_answers;
-    randomised = randomiseAs(answer, wrongAs);
-    populateAnswers(randomised);
+    if (index === 5) {
+        console.log("getting new qs");
+        getQuestions();
+    } 
+    else {
+        populateQuestion(questions[index].question);
+        answer = questions[index].correct_answer;
+        let wrongAs = questions[index].incorrect_answers;
+        randomised = randomiseAs(answer, wrongAs);
+        populateAnswers(randomised);
+    }
 }
 
 function randomiseAs(answer, wrongAs) {
@@ -119,17 +126,32 @@ function checkAnswer(uAnswerI) {
         alert("Congratulations, you were correct");
         index++;
         score++;
+        updatePrizeBoard();
         nextQuestion();
         return true;
     }
     else {
         alert("Sorry, that was not the correct answer");
+        //reset prize board
+        let prize = score.toString();
+        let eleLiOld = document.getElementById(prize);
+        eleLiOld.classList.remove('selected');
         index = 0;
         score = 0;
         play();
         return false;
     }
 
+}
+
+function updatePrizeBoard() {
+    let prize = score.toString();
+    if (prize > 0) {
+        let eleLiOld = document.getElementById(prize-1);
+        eleLiOld.classList.remove('selected');
+    }
+    let eleLi =  document.getElementById(`${prize}`);
+    eleLi.classList.add('selected');
 }
 
 //Run Game
@@ -148,6 +170,7 @@ function play() {
 
     //receive questions and answers, randomize A to D, keep track of correct answers
     getQuestions();
+    updatePrizeBoard();
 
     //if correct congratulations & next question, update Prize Board
     //else Game Over
