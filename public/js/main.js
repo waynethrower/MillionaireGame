@@ -86,7 +86,19 @@ function populateAnswers(randomised) {
 
 //consider passing in the level for deciding on the easy/medium/hard
 async function getQuestions() {
-    let response = await fetch(`https://opentdb.com/api.php?amount=5&category=9&difficulty=easy&type=multiple`);
+    let response;
+    if (score === 10) {
+        console.log(`fetching hard`)
+        response = await fetch(`https://opentdb.com/api.php?amount=5&category=9&difficulty=hard&type=multiple`);
+    }
+    else if(score ===5 && score<10) {
+        console.log(`fetching medium`)
+        response = await fetch(`https://opentdb.com/api.php?amount=5&category=9&difficulty=medium&type=multiple`);
+    }
+    else {
+        console.log(`fetching easy`)
+        response = await fetch(`https://opentdb.com/api.php?amount=5&category=9&difficulty=easy&type=multiple`);
+    }
     let json = await response.json();
     questions = json["results"];
     index = 0;
@@ -101,7 +113,6 @@ async function getQuestions() {
 
 function nextQuestion() {
     if (index === 5) {
-        console.log("getting new qs");
         getQuestions();
     } 
     else {
