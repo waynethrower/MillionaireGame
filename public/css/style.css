@@ -19,6 +19,7 @@ body {
 
 .logo {
   width: 33%;
+  padding-top: 5px;
 }
 #qHeader {
   color: white;
